@@ -14005,14 +14005,14 @@ window.Vue = __webpack_require__(37);
  */
 
 Vue.component('example-component', __webpack_require__(40));
+//Vue.component('upload-form', require('./components/UploadForm.vue'));
+
 
 
 
 var app = new Vue({
   el: '#app',
-  components: {
-    UploadForm: __WEBPACK_IMPORTED_MODULE_0__components_UploadForm___default.a
-  }
+  components: { UploadForm: __WEBPACK_IMPORTED_MODULE_0__components_UploadForm___default.a }
 });
 
 /***/ }),
@@ -47428,7 +47428,7 @@ exports = module.exports = __webpack_require__(46)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -47795,14 +47795,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    name: "UploadForm",
+
+    props: ['user'],
+
+    data: function data() {
+        return {
+            avatar: this.user.avatar
+        };
+    },
+
     methods: {
+        GetImage: function GetImage(e) {
+            var _this = this;
+
+            var image = e.target.files[0];
+            var reader = new FileReader();
+            reader.readAsDataURL(image);
+            reader.onload = function (e) {
+                _this.avatar = e.target.result;
+            };
+        },
         upload: function upload() {
-            axios.post('/upload');
+            axios.post('/upload', { 'image': this.avatar });
         }
     }
+
 });
 
 /***/ }),
@@ -47814,9 +47834,12 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("input", { attrs: { type: "file", name: "image" } }),
+    _c("input", {
+      attrs: { type: "file", name: "image", accept: "image/*" },
+      on: { change: _vm.GetImage }
+    }),
     _vm._v(" "),
-    _c("img", { attrs: { src: "", alt: "Image" } }),
+    _c("img", { attrs: { src: _vm.avatar, alt: "Image" } }),
     _vm._v(" "),
     _c(
       "a",

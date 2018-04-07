@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -23,7 +22,7 @@
                                             @endforeach
                                         @endif
 
-                                    <upload-form></upload-form>
+                                        <upload-form :user="{{auth()->user()}}"></upload-form>
 
                                     </div>
                                 </div>
@@ -35,15 +34,3 @@
         </div>
     </div>
 @endsection
-<script>
-    import UploadForm from "../assets/js/components/UploadForm";
-    export default {
-        components: {UploadForm}
-    }
-</script>
-<script>
-    import UploadForm from "../assets/js/components/UploadForm";
-    export default {
-        components: {UploadForm}
-    }
-</script>
