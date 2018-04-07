@@ -17,6 +17,11 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
+import UploadForm from './components/UploadForm';
+
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    components:{
+        UploadForm
+    }
 });
