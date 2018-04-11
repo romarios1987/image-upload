@@ -9,6 +9,14 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+
+
+// register the plugin on vue
+import Toasted from 'vue-toasted';
+
+Vue.use(Toasted)
+
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

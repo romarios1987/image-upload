@@ -16,11 +16,12 @@ class ImageController extends Controller
 ////
 ////        }
 
-        $request->user()->avatar = $request->image;
-        $request->user()->save();
+        $request->user()->update(['avatar' => $request->image]);
+//        $request->user()->avatar = $request->image;
+//        $request->user()->save();
         //return back();
 
 
-        return response(null, 200);
+        return response(null, 202);
     }
 }

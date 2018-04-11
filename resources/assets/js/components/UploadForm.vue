@@ -1,15 +1,10 @@
 <template>
-    <!--<form action="{{route('upload')}}" enctype="multipart/form-data" method="post">-->
-
-
     <div>
         <input type="file" name="image" @change="GetImage" accept="image/*">
         <img :src="avatar" alt="Image">
-        <a href="#" class="btn btn-success" @click.prevent="upload">Upload</a>
+        <a href="#" v-if="loaded" class="btn btn-success" @click.prevent="upload">Upload</a>
+        <a href="#" v-if="loaded" class="btn btn-danger" @click.prevent="cancel">Cancel</a>
     </div>
-
-
-    <!--</form>-->
 </template>
 
 <script>
@@ -19,20 +14,35 @@
 
         data() {
             return {
-                avatar: this.user.avatar
+                avatar: this.user.avatar,
+                loaded: false
             }
         },
         methods: {
             GetImage(e) {
                 let image = e.target.files[0];
+                this.read(image);
+
+            },
+            upload() {
+                axios.post('/upload', {'image': this.avatar})
+                    .then(res =>
+                        this.$toasted.show('Avatar is uploaded !',
+                            {type: 'success'})
+                    )
+            },
+            read(image) {
                 let reader = new FileReader();
                 reader.readAsDataURL(image);
                 reader.onload = e => {
                     this.avatar = e.target.result
-                }
+                };
+
+                this.loaded = true;
             },
-            upload() {
-                axios.post('/upload', {'image': this.avatar})
+            cancel() {
+                this.avatar = this.user.avatar
+                this.loaded = false
             }
         }
 
