@@ -28,9 +28,10 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
 
 
 import UploadForm from './components/UploadForm'
+import SaveImage from './components/SaveImage'
 
 
 const app = new Vue({
     el: '#app',
-    components:{UploadForm}
+    components:{UploadForm, SaveImage}
 });

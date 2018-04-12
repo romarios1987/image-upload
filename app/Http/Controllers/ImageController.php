@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ImageRequest;
 
-
 class ImageController extends Controller
 {
     public function upload(ImageRequest $request)
@@ -21,7 +20,20 @@ class ImageController extends Controller
 //        $request->user()->save();
         //return back();
 
-
         return response(null, 202);
     }
+
+    public function saveImage(ImageRequest $request)
+    {
+
+        if ($request->hasFile('image')) {
+            $image_name = $request->image->getClientOriginalName();
+            $request->image->storeAs('public', $image_name);
+            $request->user->update(['image' => $image_name]);
+
+            return response(null, 202);
+        }
+    }
+
+
 }

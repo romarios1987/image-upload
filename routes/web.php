@@ -17,6 +17,11 @@ Route::get('/', function () {
 
 Route::post('upload', 'ImageController@upload')->name('upload');
 
+
+// With save image
+Route::view('saveImage', 'showSaveImage');
+Route::post('saveImage', 'ImageController@saveImage');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
