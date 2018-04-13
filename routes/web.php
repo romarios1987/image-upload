@@ -17,6 +17,10 @@ Route::get('/', function () {
 
 Route::post('upload', 'ImageController@upload')->name('upload');
 
+// Vue Avatar Editor
+Route::get('avatar', 'AvatarController@vueAvatar');
+
+
 
 // With save image
 Route::view('saveImage', 'showSaveImage');

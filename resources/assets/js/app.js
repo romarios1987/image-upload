@@ -14,7 +14,7 @@ window.Vue = require('vue');
 // register the plugin on vue
 import Toasted from 'vue-toasted';
 
-Vue.use(Toasted)
+Vue.use(Toasted);
 
 
 /**
@@ -24,6 +24,8 @@ Vue.use(Toasted)
  */
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
+
+Vue.component('custom-avatar-editor', require('./components/vue-avatar.vue'));
 //Vue.component('upload-form', require('./components/UploadForm.vue'));
 
 
