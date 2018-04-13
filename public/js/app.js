@@ -47756,7 +47756,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -47832,6 +47832,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -47842,16 +47849,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         VueAvatar: __WEBPACK_IMPORTED_MODULE_1__vue_avatar_editor_src_components_VueAvatar_vue___default.a,
         VueAvatarScale: __WEBPACK_IMPORTED_MODULE_2__vue_avatar_editor_src_components_VueAvatarScale_vue___default.a
     },
+
+    data: function data() {
+        return {
+            croppedImage: null,
+            cropped: false
+        };
+    },
+
+
     methods: {
         onChangeScale: function onChangeScale(scale) {
+            //console.log("Hello");
             this.$refs.vueavatar.changeScale(scale);
         },
         saveClicked: function saveClicked() {
             var img = this.$refs.vueavatar.getImageScaled();
             // use img
+            this.croppedImage = img.toDataURL();
+            this.cropped = true;
         },
         onImageReady: function onImageReady(scale) {
             this.$refs.vueavatarscale.setScale(scale);
+        },
+        startCroping: function startCroping() {
+            this.cropped = false;
         }
     }
 });
@@ -48570,35 +48592,42 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("vue-avatar", {
-        ref: "vueavatar",
-        attrs: {
-          width: 400,
-          height: 400,
-          image: "https://ru.vuejs.org/images/logo.png"
-        },
-        on: { "vue-avatar-editor:image-ready": _vm.onImageReady }
-      }),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("vue-avatar-scale", {
-        ref: "vueavatarscale",
-        attrs: { width: 250, min: 1, max: 3, step: 0.02 },
-        on: { "vue-avatar-editor-scale:change-scale": _vm.onChangeScale }
-      }),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("img", { attrs: { src: "", id: "img-1" } }),
-      _vm._v(" "),
-      _c("button", { on: { click: _vm.saveClicked } }, [_vm._v("Click")])
-    ],
-    1
-  )
+  return _c("div", [
+    !_vm.cropped
+      ? _c(
+          "div",
+          [
+            _c("vue-avatar", {
+              ref: "vueavatar",
+              attrs: {
+                width: 200,
+                height: 200,
+                border: 1,
+                image: "https://ru.vuejs.org/images/logo.png"
+              },
+              on: { "vue-avatar-editor:image-ready": _vm.onImageReady }
+            }),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("vue-avatar-scale", {
+              ref: "vueavatarscale",
+              attrs: { width: 250, min: 1, max: 3, step: 0.02 },
+              on: { "vue-avatar-editor-scale:change-scale": _vm.onChangeScale }
+            }),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("button", { on: { click: _vm.saveClicked } }, [_vm._v("Click")])
+          ],
+          1
+        )
+      : _c("div", [
+          _c("img", { attrs: { src: _vm.croppedImage, alt: "" } }),
+          _vm._v(" "),
+          _c("button", { on: { click: _vm.startCroping } }, [_vm._v("Back")])
+        ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
